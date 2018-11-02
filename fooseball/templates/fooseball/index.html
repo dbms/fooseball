@@ -1,0 +1,226 @@
+<!DOCTYPE html>{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fooseball Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,700italic,400,700" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" rel="stylesheet"
+        type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css"
+        type="text/css" />
+    <script src="{% static 'fooseball/js/script.js' %}"></script>
+</head>
+
+<body>
+    <header id="header">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+                <a href="/" class="navbar-brand">Fooseball LeaderBoard</a>
+                <div class="collapse navbar-collapse navbar-left">
+                    <ul class="nav navbar-nav">
+                        <li style="font-weight:bold"><a href="#">Ranking</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container body-content" style="padding-top:50px">
+        <h2 style="margin-bottom:15px">Create | Play | Track</h2>
+        <span id='loadingmessage' style='display:none'>
+                <img src="{% static 'fooseball/images/progress.gif' %}" width="100px"/>
+        </span>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#menu1">Create Team</a></li>
+            <li><a data-toggle="tab" href="#menu3">Matches</a></li>
+            <li><a data-toggle="tab" href="#menu2">LeaderBoard</a></li>
+
+        </ul>
+
+        <div class="tab-content">
+            <div id="menu2" class="tab-pane fade  in active">
+                <h3>Create Team</h3>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form class="form-horizontal" action="javascript:createTeam();">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="email">Team Name :</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" autocomplete="off" id="id_txt_teamName"
+                                            placeholder="Enter Team Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="email">Player 1 :</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" autocomplete="off" id="id_txt_player1"
+                                            placeholder="Enter Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="pwd">Player 2 :</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" autocomplete="off" id="id_txt_player2"
+                                            placeholder="Enter Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-4">
+                                        <button type="submit" id="id_btn_createTeam" class="btn btn-primary">Create</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <form class="form-horizontal" action="javascript:searchProducer();">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-bg">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr. No.</th>
+                                                    <th>Team Name</th>
+                                                    <th>Player 1</th>
+                                                    <th>Player 2</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="id_tbl_displayProducerDetails"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menu3" class="tab-pane fade">
+                <h3>Add Movie</h3>
+                <div class="container-fluid">
+                    <form class="form-horizontal" action="javascript:saveMovie();">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="email">Name :</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" autocomplete="off" id="id_txt_movieName"
+                                            placeholder="Enter Name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-5" for="pwd">Year of Release:</label>
+                                    <div class="col-sm-7">
+                                        <select id="id_ddl_movieyearOfRelease" class="form-control" required></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="pwd">Producer :</label>
+                                    <div class="col-sm-8">
+                                        <select id="id_ddl_movieProducer" class="form-control" required></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="pwd">Actors :</label>
+                                    <div class="col-sm-9">
+                                        <select id="id_ddl_movieActors" name="name_actor_picker" class="selectpicker"
+                                            data-show-subtext="true" data-live-search="true" multiple></select>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <div style="padding-left:150px">
+                                        <input type="hidden" value="" id="id_hid_movieID" />
+                                        <button type="submit" id="id_btn_movieSave" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-5" for="pwd">Poster Url :</label>
+                                    <div class="col-sm-7" style="padding-top:7px">
+                                        <input type="file" name="fileToUpload" id="id_file_moviePoster">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="pwd">Plot :</label>
+                                    <div class="col-sm-8">
+                                        <textarea rows="5" class="form-control" id="id_txt_moviePlot" placeholder="Enter Description"
+                                            maxlength="1000" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" action="javascript:searchMovie();">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="email">Search Movie :</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="id_txt_movieSearch" autocomplete="off"
+                                            placeholder="Enter Name" maxlength="100" required>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" id="id_btn_movieSearch" class="btn btn-primary" style="margin-top:0">Search</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12" id="id_div_displayMovieDetails">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-bg">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr. No.</th>
+                                                    <th>Name</th>
+                                                    <th>Year of Release</th>
+                                                    <th>Producer</th>
+                                                    <th>Actors</th>
+                                                    <th>Plot</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="id_tbl_displayMovieDetails"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </div>
+    
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
+
+
+</body>
+
+</html>
