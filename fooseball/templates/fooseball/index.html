@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fooseball Game</title>
+    <title>Fooseball LeaderBoard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -29,7 +29,7 @@
     </style>
 </head>
 
-<body>
+<body style="background: #fff;">
     <header id="header">
         <nav class="navbar navbar-inverse navbar-fixed-top" role="banner">
             <div class="container">
@@ -42,10 +42,13 @@
                     </button>
 
                 </div>
-                <a href="/" class="navbar-brand">Fooseball LeaderBoard</a>
+
+                <a href="/" class="navbar-brand" style="color:#fff">
+                    <span>
+                        <img width="30px" src="{% static 'fooseball/images/fooseball.png' %}" alt="" />
+                    </span> Fooseball LeaderBoard</a>
                 <div class="collapse navbar-collapse navbar-left">
                     <ul class="nav navbar-nav">
-                        <li style="font-weight:bold"><a href="#">Ranking</a></li>
                     </ul>
                 </div>
             </div>
@@ -68,48 +71,48 @@
                 <h3>Create Team</h3>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <form class="form-horizontal" action="javascript:createTeam();">
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" for="email">Team Name :</label>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-7">
                                         <input type="text" class="form-control" autocomplete="off" id="id_txt_teamName"
-                                            placeholder="Enter Team Name" required autofocus>
+                                            placeholder="Enter Team Name" pattern="[a-zA-Z0-9_]*$" maxlength="150" required autofocus>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" for="email">Player 1 :</label>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-7">
                                         <input type="text" class="form-control" autocomplete="off" id="id_txt_player1"
-                                            placeholder="Enter Name" max_length="100" required>
+                                            placeholder="Enter Name" pattern="[a-zA-Z]+" maxlength="100" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" for="pwd">Player 2 :</label>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-7">
                                         <input type="text" class="form-control" autocomplete="off" id="id_txt_player2"
-                                            placeholder="Enter Name" max_length="100" required>
+                                            placeholder="Enter Name" pattern="[a-zA-Z]+" maxlength="100" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-4">
-                                        <button type="submit" id="id_btn_createTeam" class="btn btn-primary">Create</button>
+                                        <button type="submit" id="id_btn_createTeam" class="btn btn-primary"><b> Create
+                                            </b></button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <h4>Recently Created Teams</h4>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-bg">
-                                        <thead>
+                                    <table class="table table-hover table-bg" style="border:1px solid #f2f2f2">
+                                        <thead style="background: #EC7063;color:#fff">
                                             <tr>
                                                 <th>Sr. No.</th>
                                                 <th>Team Name</th>
                                                 <th>Player 1</th>
                                                 <th>Player 2</th>
-                                                <th>Points</th>
                                                 <th>Time of Creation</th>
                                             </tr>
                                         </thead>
@@ -146,7 +149,7 @@
                             <div class="col-md-1">
                                 <div class="form-group">
                                     <div class="col-sm-offset-4">
-                                        <button type="submit" class="btn btn-primary">Start</button>
+                                        <button type="submit" class="btn btn-warning"><b> Start </b></button>
                                     </div>
                                 </div>
                             </div>
@@ -157,8 +160,8 @@
                         <h3 style="margin-top:0px;padding-top: 0px">Recent Matches</h3>
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-bg">
-                                    <thead>
+                                <table class="table table-hover table-bg" style="border:1px solid #f2f2f2">
+                                    <thead style="background: #2E86C1;color:#fff">
                                         <tr>
                                             <th>Sr. No.</th>
                                             <th>Team 1</th>
@@ -184,14 +187,15 @@
                         <div class="col-md-12">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-bg">
-                                        <thead>
+                                    <table class="table table-hover table-bg" style="border:1px solid #f2f2f2">
+                                        <thead style="background: #2ECC71;color:#fff">
                                             <tr>
-                                                <th>Sr. No.</th>
+                                                <th>Ranking</th>
                                                 <th>Team Name</th>
                                                 <th>Team Members</th>
-                                                <th>Matches Won</th>
-                                                <th>Matches Lost</th>
+                                                <th>Matches Won ( +3 )</th>
+                                                <th>Matches Lost ( -2 )</th>
+                                                <th>Matches Draw ( +1 )</th>
                                                 <th>Points</th>
                                                 <th>Created On</th>
                                             </tr>
