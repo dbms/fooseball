@@ -1,2 +1,2 @@
-web: gunicorn fooseballgame.wsgi --log-file -
+web: gunicorn fooseballgame.wsgi
 
