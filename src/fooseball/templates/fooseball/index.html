@@ -1,0 +1,221 @@
+<!DOCTYPE html>{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fooseball LeaderBoard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,700italic,400,700" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" rel="stylesheet"
+        type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css"
+        type="text/css" />
+    <style>
+        .colorgraph {
+        height: 5px;
+        padding: 0px;
+        margin-top: 20px;
+        border-top: 0;
+        background: #c4e17f;
+        border-radius: 5px;
+        background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+        background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+        background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+        background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+    }
+    </style>
+</head>
+
+<body style="background: #fff;">
+    <header id="header">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+
+                <a href="/" class="navbar-brand" style="color:#fff">
+                    <span>
+                        <img width="30px" src="{% static 'fooseball/images/fooseball.png' %}" alt="" />
+                    </span> Fooseball LeaderBoard</a>
+                <div class="collapse navbar-collapse navbar-left">
+                    <ul class="nav navbar-nav">
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container body-content" style="padding-top:50px">
+        <h2 style="margin-bottom:15px">Create | Play | Track</h2>
+        <span id='loadingmessage' style='display:none'>
+            <img src="{% static 'fooseball/images/progress.gif' %}" width="100px" />
+        </span>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#menu1">Create Team</a></li>
+            <li><a data-toggle="tab" href="#menu2">Matches</a></li>
+            <li><a data-toggle="tab" href="#menu3">LeaderBoard</a></li>
+
+        </ul>
+
+        <div class="tab-content">
+            <div id="menu1" class="tab-pane fade  in active">
+                <h3>Create Team</h3>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <form class="form-horizontal" action="javascript:createTeam();">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="email">Team Name :</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" autocomplete="off" id="id_txt_teamName"
+                                            placeholder="Enter Team Name" pattern="[a-zA-Z0-9_]*$" maxlength="150" required autofocus>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="email">Player 1 :</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" autocomplete="off" id="id_txt_player1"
+                                            placeholder="Enter Name" pattern="[a-zA-Z]+" maxlength="100" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="pwd">Player 2 :</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" autocomplete="off" id="id_txt_player2"
+                                            placeholder="Enter Name" pattern="[a-zA-Z]+" maxlength="100" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-4">
+                                        <button type="submit" id="id_btn_createTeam" class="btn btn-primary"><b> Create
+                                            </b></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-7">
+                            <h4>Recently Created Teams</h4>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-bg" style="border:1px solid #f2f2f2">
+                                        <thead style="background: #EC7063;color:#fff">
+                                            <tr>
+                                                <th>Sr. No.</th>
+                                                <th>Team Name</th>
+                                                <th>Player 1</th>
+                                                <th>Player 2</th>
+                                                <th>Time of Creation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="id_tbl_displayTeamDetails"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menu2" class="tab-pane fade">
+                <h3>Start Match</h3>
+                <div class="container-fluid">
+                    <div class="row">
+                        <form class="form-horizontal" action="javascript:startMatch();">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="email">Team 1 :</label>
+                                    <div class="col-sm-7">
+                                        <select id="id_ddl_teams1" class="form-control" max_length="200" required></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="email">Team 2 :</label>
+                                    <div class="col-sm-7">
+                                        <select id="id_ddl_teams2" class="form-control" max_length="200" required></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-4">
+                                        <button type="submit" class="btn btn-warning"><b> Start </b></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <hr class="colorgraph">
+                    <div class="row">
+                        <h3 style="margin-top:0px;padding-top: 0px">Recent Matches</h3>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bg" style="border:1px solid #f2f2f2">
+                                    <thead style="background: #2E86C1;color:#fff">
+                                        <tr>
+                                            <th>Sr. No.</th>
+                                            <th>Team 1</th>
+                                            <th>Team 2</th>
+                                            <th>Status</th>
+                                            <th>Started At</th>
+                                            <th>Match Score</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="id_tbl_displayMatchDetails"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menu3" class="tab-pane fade">
+                <h3>LeaderBoard</h3>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-bg" style="border:1px solid #f2f2f2">
+                                        <thead style="background: #2ECC71;color:#fff">
+                                            <tr>
+                                                <th>Ranking</th>
+                                                <th>Team Name</th>
+                                                <th>Team Members</th>
+                                                <th>Matches Won ( +3 )</th>
+                                                <th>Matches Lost ( -2 )</th>
+                                                <th>Matches Draw ( +1 )</th>
+                                                <th>Points</th>
+                                                <th>Created On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="id_tbl_displayLeaderboard"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'fooseball/js/script.js' %}"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
+
+
+</body>
+
+</html>
